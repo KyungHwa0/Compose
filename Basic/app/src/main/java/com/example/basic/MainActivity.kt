@@ -1,10 +1,15 @@
 package com.example.basic
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -24,57 +29,39 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MyTextEx()
-                }
+                MyBtn()
             }
         }
     }
 }
 
 @Composable
-fun MyTextEx() {
-
-    // text
-    // fontSize
-    // color
-    // fontStyle
-    // fontWeight
-    // modifier(padding)
-    // background
-
-    Text(
-        text = "Text 입니다",
-        fontSize = 30.sp,
-        color = Color.Red,
-        fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(30.dp),
-        style = TextStyle(background = Color.Blue)
-    )
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun MyBtn() {
+    Button(
+        onClick = {
+            Log.d("Main", "onClick")
+        },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Black,
+            contentColor = Color.Red
+        ),
+        modifier = Modifier
+            .width(200.dp)
+            .height(300.dp)
+    ) {
+        Text(
+            text = "ButtonButtonButtonButtonButtonButton",
+            lineHeight = 30.sp,
+            fontSize = 30.sp,
+            color = Color.White
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            MyTextEx()
-        }
+        MyBtn()
     }
 }
