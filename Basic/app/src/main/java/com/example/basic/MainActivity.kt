@@ -2,6 +2,7 @@ package com.example.basic
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -37,9 +39,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyBtn() {
+    val context = LocalContext.current
     Button(
         onClick = {
             Log.d("Main", "onClick")
+            Toast.makeText(context, "클릭", Toast.LENGTH_LONG).show()
         },
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Black,
