@@ -43,7 +43,7 @@ fun MyTextField1() {
     TextField(
         value = textState,
         onValueChange = {
-            textState = it //변화 되는 값
+            textState = it //변화되는 값
 
         }
     )
