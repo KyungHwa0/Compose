@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -25,28 +27,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                SimpleCounterBtn()
+                MyTextField1()
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SimpleCounterBtn() {
-    var count by remember {
-        mutableStateOf(0)
+fun MyTextField1() {
+    var textState by remember {
+        mutableStateOf("Hello")
     }
 
-    Button(onClick = {
-        count++
-    },
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = "Count :$count",
-            fontSize = 50.sp
-        )
-    }
+    TextField(
+        value = textState,
+        onValueChange = {
+            textState = it
+
+        }
+    )
 }
 
 
@@ -54,6 +54,6 @@ fun SimpleCounterBtn() {
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        SimpleCounterBtn()
+        MyTextField1()
     }
 }
