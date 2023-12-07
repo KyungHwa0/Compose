@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                MyTextField1()
+                MyTextField2()
             }
         }
     }
@@ -44,7 +45,27 @@ fun MyTextField1() {
         value = textState,
         onValueChange = {
             textState = it //변화되는 값
+        },
+        label = {
+            Text(text = "입력 하는 곳")
+        }
+    )
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTextField2() {
+    var textState by remember {
+        mutableStateOf("Hello")
+    }
+
+    OutlinedTextField(
+        value = textState,
+        onValueChange = {
+            textState = it //변화되는 값
+        },
+        label = {
+            Text(text = "입력 하는 곳")
         }
     )
 }
@@ -54,6 +75,6 @@ fun MyTextField1() {
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        MyTextField1()
+        MyTextField2()
     }
 }
