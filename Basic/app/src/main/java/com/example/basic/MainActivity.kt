@@ -35,6 +35,9 @@ import com.example.basic.ui.theme.BasicTheme
 
 
 // Box
+// https://foso.github.io/Jetpack-Compose-Playground/layout/box/
+// 적당히 레이아웃 항목을 겹쳐서 내가 원하는 위치에 배치할 수 있음
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
