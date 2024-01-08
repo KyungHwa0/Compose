@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,123 +36,43 @@ import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
 
-// Box
+// Row
+// Column
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                BoxExample()
+                RowExample()
             }
         }
     }
 }
 
 @Composable
-fun BoxExample() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.Cyan)
+fun RowExample() {
+
+    Row(
+        modifier = Modifier.fillMaxSize().background(Color.Gray),
+        horizontalArrangement = Arrangement.SpaceEvenly, // 가로로 동일한 간격
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(color = Color.Blue)
-                .padding(12.dp)
-                .align(Alignment.TopStart)
-        ) {
-            Text(
-                text = "왼쪽 위",
-                color = Color.White
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(color = Color.Blue)
-                .padding(12.dp)
-                .align(Alignment.TopCenter)
-        ) {
-            Text(
-                text = "중앙 위",
-                color = Color.White
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(color = Color.Blue)
-                .padding(12.dp)
-                .align(Alignment.TopEnd)
-        ) {
-            Text(
-                text = "오른쪽 위",
-                color = Color.White
-            )
-        }
-
-        Button(
-            onClick = { },
-            modifier = Modifier.align(Alignment.CenterStart)
-        ) {
-            Text(text = "중앙 왼쪽")
-        }
-
-        Button(
-            onClick = { },
-            modifier = Modifier.align(Alignment.Center)
-        ) {
-            Text(text = "중앙")
-        }
-
-        Button(
-            onClick = { },
-            modifier = Modifier.align(Alignment.CenterEnd)
-        ) {
-            Text(text = "중앙 오른쪽")
-        }
-
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(color = Color.Blue)
-                .padding(12.dp)
-                .align(Alignment.BottomStart)
-        ) {
-            Text(
-                text = "왼쪽 아래",
-                color = Color.White
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(color = Color.Blue)
-                .padding(12.dp)
-                .align(Alignment.BottomCenter)
-        ) {
-            Text(
-                text = "중앙 아래",
-                color = Color.White
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(color = Color.Blue)
-                .padding(12.dp)
-                .align(Alignment.BottomEnd)
-        ) {
-            Text(
-                text = "오른쪽 아래",
-                color = Color.White
-            )
-        }
+        Text(
+            text = "Item1",
+            style = TextStyle(background = Color.White),
+            fontSize = 30.sp
+        )
+        Text(
+            text = "Item2",
+            style = TextStyle(background = Color.White),
+            fontSize = 30.sp
+        )
+        Text(
+            text = "Item3",
+            style = TextStyle(background = Color.White),
+            fontSize = 30.sp
+        )
     }
 }
 
@@ -158,6 +80,6 @@ fun BoxExample() {
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        BoxExample()
+        RowExample()
     }
 }
