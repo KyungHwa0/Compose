@@ -81,9 +81,10 @@ fun ColumnRowTest1() {
 fun ProfileImage() {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
 //            .padding(5.dp)
             .background(color = Color(0xFF000000))
+            .padding(10.dp)
             .border(
                 border = BorderStroke(5.dp, color = Color(0xFF323232))
             ),
@@ -91,7 +92,7 @@ fun ProfileImage() {
     ) {
 
         Box(
-            modifier = Modifier.padding(top = 20.dp)
+            modifier = Modifier.padding(top = 50.dp)
 
         ) {
             Image(
@@ -105,9 +106,9 @@ fun ProfileImage() {
         Text(
             text = "Android Developer",
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(20.dp)
         )
 
         Row(
@@ -174,7 +175,7 @@ fun ProfileImage() {
             )
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+//        Spacer(modifier = Modifier.height(20.dp))
 
     }
 }
