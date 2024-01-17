@@ -7,5 +7,7 @@
 ## ProfileImage
 [ProfileImage](https://github.com/KyungHwa0/Compose/tree/dev/ProfileImage)
 
-<img src="https://github.com/KyungHwa0/Compose/assets/124041716/19633e62-2f7e-4613-8923-b7b287a41e48" width="250">
+[TroubleShooting](https://wagzack.tistory.com/16)
+
+<img src="https://github.com/KyungHwa0/Compose/assets/124041716/dcf1fda2-e439-48c9-ba5c-899910d8916c" width="250">
 
