@@ -18,10 +18,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -43,32 +46,48 @@ import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
 
-// Card
+// Surface
+// 컨텐츠를 담아 놓는 컨테이너
+// Text, Button, Box, Surface
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                MyWebView("https://www.naver.com")
+                Greeting()
             }
         }
     }
 }
 
 @Composable
-fun MyWebView(url : String) {
-    AndroidView(factory = {
-        WebView(it).apply{
-            loadUrl(url)
+fun Greeting() {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        color = Color.Green,
+        shape = RoundedCornerShape(20.dp),
+        shadowElevation = 3.dp
+    ) {
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White
+            )
+            ) {
+            Text(text = "클릭")
         }
-    })
+
+    }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        MyWebView("https://www.naver.com")
+        Greeting()
     }
 }
