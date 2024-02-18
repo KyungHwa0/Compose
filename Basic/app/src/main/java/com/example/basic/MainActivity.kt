@@ -1,6 +1,7 @@
 package com.example.basic
 
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -17,10 +18,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -37,61 +41,53 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
 
-// Card
+// Surface
+// 컨텐츠를 담아 놓는 컨테이너
+// Text, Button, Box, Surface
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-
+                Greeting()
             }
         }
     }
 }
 
 @Composable
-fun CardTest(txt : String) {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .height(100.dp)
-        .padding(10.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 5.dp
-        ),
-        shape = RoundedCornerShape(30.dp),
-        border = BorderStroke(1.dp, Color.Black)
+fun Greeting() {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        color = Color.Green,
+        shape = RoundedCornerShape(20.dp),
+        shadowElevation = 3.dp
     ) {
-
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.LightGray),
-            contentAlignment = Alignment.Center
-        ) {
-
-            Text(
-                text = txt,
-                fontSize = 30.sp
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White
             )
-
+            ) {
+            Text(text = "클릭")
         }
 
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-
-        Column() {
-            CardTest("1")
-            CardTest("2")
-            CardTest("test")
-        }
+        Greeting()
     }
 }
