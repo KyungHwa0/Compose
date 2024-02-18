@@ -1,6 +1,7 @@
 package com.example.basic
 
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
@@ -48,50 +50,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-
+                MyWebView("https://www.naver.com")
             }
         }
     }
 }
 
 @Composable
-fun CardTest(txt : String) {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .height(100.dp)
-        .padding(10.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 5.dp
-        ),
-        shape = RoundedCornerShape(30.dp),
-        border = BorderStroke(1.dp, Color.Black)
-    ) {
-
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.LightGray),
-            contentAlignment = Alignment.Center
-        ) {
-
-            Text(
-                text = txt,
-                fontSize = 30.sp
-            )
-
+fun MyWebView(url : String) {
+    AndroidView(factory = {
+        WebView(it).apply{
+            loadUrl(url)
         }
-
-    }
+    })
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-
-        Column() {
-            CardTest("1")
-            CardTest("2")
-            CardTest("test")
-        }
+        MyWebView("https://www.naver.com")
     }
 }
