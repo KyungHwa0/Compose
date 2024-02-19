@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -55,7 +56,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                Greeting()
+                Greeting2()
             }
         }
     }
@@ -83,11 +84,38 @@ fun Greeting() {
     }
 }
 
+@Composable
+fun Greeting2() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = Color.Blue,
+        border = BorderStroke(2.dp, Color.Black),
+        contentColor = Color.White
+    ){
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Surface(
+                modifier = Modifier
+                    .size(100.dp),
+                color = Color.Red
+            ) {
+                Text(text="Hello Compose")
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(text = "Hello Jetpack")
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        Greeting()
+        Greeting2()
     }
 }
