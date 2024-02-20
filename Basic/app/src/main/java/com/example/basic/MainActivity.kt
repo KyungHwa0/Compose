@@ -18,16 +18,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -47,66 +59,100 @@ import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
 
-// Surface
-// 컨텐츠를 담아 놓는 컨테이너
-// Text, Button, Box, Surface
+// Scaffold
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                Greeting2()
+                Greeting()
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Greeting() {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        color = Color.Green,
-        shape = RoundedCornerShape(20.dp),
-        shadowElevation = 3.dp
-    ) {
-        Button(
-            onClick = {},
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = Color.White
-            )
-            ) {
-            Text(text = "클릭")
+    Scaffold(
+        topBar = {
+            TopBar()
+        },
+        floatingActionButton = {
+            FloatingActionButton()
+        },
+        bottomBar = {
+            BottomBar()
+        }
+    ) { paddingValues ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)) {
+            Text(text = "Hello Compose")
+
         }
 
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting2() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.Blue,
-        border = BorderStroke(2.dp, Color.Black),
-        contentColor = Color.White
-    ){
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Surface(
-                modifier = Modifier
-                    .size(100.dp),
-                color = Color.Red
-            ) {
-                Text(text="Hello Compose")
+fun TopBar() {
+    TopAppBar(
+        title = {
+            Text(
+                text = "Main",
+                color = Color.White
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Add, contentDescription = "add", tint = Color.White)
             }
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(text = "Hello Jetpack")
+        },
+        actions = {
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Black
+                )
+            ) {
+                Text(text = "Button")
+            }
+        },
+        colors = TopAppBarDefaults.smallTopAppBarColors(Color.Black),
+    )
+}
+
+@Composable
+fun FloatingActionButton() {
+    androidx.compose.material3.FloatingActionButton(onClick = { /*TODO*/ }) {
+        Icon(Icons.Default.Menu, contentDescription = "Menu")
+    }
+}
+
+@Composable
+fun BottomBar() {
+    BottomAppBar(
+        containerColor = Color.Black,
+        contentColor = Color.White
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Home, contentDescription = "Home")
+            }
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Favorite, contentDescription = "Favorite")
+            }
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Settings, contentDescription = "Settings")
+            }
         }
     }
 }
@@ -116,6 +162,6 @@ fun Greeting2() {
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        Greeting2()
+        Greeting()
     }
 }
