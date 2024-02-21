@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -59,109 +60,42 @@ import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
 
-// Scaffold
+// LazyColumn
+// https://developer.android.com/jetpack/compose/lists?hl=ko
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BasicTheme {
-                Greeting()
+                LazyColumn()
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting() {
-    Scaffold(
-        topBar = {
-            TopBar()
-        },
-        floatingActionButton = {
-            FloatingActionButton()
-        },
-        bottomBar = {
-            BottomBar()
-        }
-    ) { paddingValues ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)) {
-            Text(text = "Hello Compose")
-
-        }
-
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar() {
-    TopAppBar(
-        title = {
-            Text(
-                text = "Main",
-                color = Color.White
-            )
-        },
-        navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Default.Add, contentDescription = "add", tint = Color.White)
-            }
-        },
-        actions = {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Black
-                )
-            ) {
-                Text(text = "Button")
-            }
-        },
-        colors = TopAppBarDefaults.smallTopAppBarColors(Color.Black),
+fun LazyColumn() {
+    val textList = listOf(
+        "A","B","C","D","F","G","H","I","J","K",
+        "A","B","C","D","F","G","H","I","J","K",
+        "A","B","C","D","F","G","H","I","J","K"
     )
-}
-
-@Composable
-fun FloatingActionButton() {
-    androidx.compose.material3.FloatingActionButton(onClick = { /*TODO*/ }) {
-        Icon(Icons.Default.Menu, contentDescription = "Menu")
-    }
-}
-
-@Composable
-fun BottomBar() {
-    BottomAppBar(
-        containerColor = Color.Black,
-        contentColor = Color.White
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Default.Home, contentDescription = "Home")
-            }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Default.Favorite, contentDescription = "Favorite")
-            }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Default.Settings, contentDescription = "Settings")
-            }
+    androidx.compose.foundation.lazy.LazyColumn {
+        items(textList) { item ->
+            Text(
+                text = item,
+                fontSize = 60.sp,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
-        Greeting()
+        LazyColumn()
     }
 }
