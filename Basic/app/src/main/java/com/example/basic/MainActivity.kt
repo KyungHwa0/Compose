@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -60,8 +62,7 @@ import coil.compose.AsyncImage
 import com.example.basic.ui.theme.BasicTheme
 
 
-// LazyColumn
-// https://developer.android.com/jetpack/compose/lists?hl=ko
+// LazyColumn -> LazyRaw
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,12 +82,14 @@ fun LazyColumn() {
         "A","B","C","D","F","G","H","I","J","K",
         "A","B","C","D","F","G","H","I","J","K"
     )
-    androidx.compose.foundation.lazy.LazyColumn {
+    LazyRow {
         items(textList) { item ->
             Text(
                 text = item,
-                fontSize = 60.sp,
-                modifier = Modifier.fillMaxWidth()
+                fontSize = 40.sp,
+                modifier = Modifier.clickable {
+                    println(item)
+                }
             )
         }
     }
