@@ -13,9 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import com.wack.constraintlayout.ui.theme.ConstraintLayoutTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,46 +39,78 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ConstraintLayoutEx() {
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        // https://developer.android.com/jetpack/compose/layouts/constraintlayout?hl=ko
-        val (redBox, magentaBox, greenBox, yellowBox) = createRefs()
+    val constraintSet = ConstraintSet{
+        val redBox = createRefFor("redBox")
+        val magentaBox = createRefFor("magentaBox")
+        val greenBox = createRefFor("greenBox")
+        val yellowBox = createRefFor("yellowBox")
+
+        constrain(redBox) {
+            bottom.linkTo(parent.bottom, 10.dp)
+            end.linkTo(parent.end, 30.dp)
+        }
+
+        constrain(magentaBox) {
+            start.linkTo(parent.start, 10.dp)
+            end.linkTo(parent.end, 30.dp)
+        }
+
+        constrain(greenBox) {
+            centerTo(parent)
+        }
+
+        constrain(yellowBox) {
+            start.linkTo(greenBox.end)
+            top.linkTo(greenBox.bottom)
+        }
+    }
+    // https://developer.android.com/jetpack/compose/layouts/constraintlayout?hl=ko
+    ConstraintLayout(
+        constraintSet,
+        modifier = Modifier.fillMaxSize()
+    ) {
+//        val (redBox, magentaBox, greenBox, yellowBox) = createRefs()
 
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .background(Color.Red)
-                .constrainAs(redBox) {
-                    bottom.linkTo(parent.bottom, 10.dp)
-                    end.linkTo(parent.end, 30.dp)
-                }
+                .layoutId("redBox")
+//                .constrainAs(redBox) {
+//                    bottom.linkTo(parent.bottom, 10.dp)
+//                    end.linkTo(parent.end, 30.dp)
+//                }
         )
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .background(Color.Magenta)
-                .constrainAs(magentaBox) {
-                    start.linkTo(parent.start, 10.dp)
-                    end.linkTo(parent.end, 30.dp)
-                }
+                .layoutId("magentaBox")
+//                .constrainAs(magentaBox) {
+//                    start.linkTo(parent.start, 10.dp)
+//                    end.linkTo(parent.end, 30.dp)
+//                }
         )
 
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .background(Color.Green)
-                .constrainAs(greenBox) {
-                    centerTo(parent)
-                }
+                .layoutId("greenBox")
+//                .constrainAs(greenBox) {
+//                    centerTo(parent)
+//                }
         )
 
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .background(Color.Yellow)
-                .constrainAs(yellowBox) {
-                    start.linkTo(greenBox.end)
-                    top.linkTo(greenBox.bottom)
-                }
+                .layoutId("yellowBox")
+//                .constrainAs(yellowBox) {
+//                    start.linkTo(greenBox.end)
+//                    top.linkTo(greenBox.bottom)
+//                }
         )
     }
 }
