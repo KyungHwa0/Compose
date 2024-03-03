@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.wack.constraintlayout.ui.theme.ConstraintLayoutTheme
@@ -39,78 +41,48 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ConstraintLayoutEx() {
-    val constraintSet = ConstraintSet{
-        val redBox = createRefFor("redBox")
-        val magentaBox = createRefFor("magentaBox")
-        val greenBox = createRefFor("greenBox")
-        val yellowBox = createRefFor("yellowBox")
-
-        constrain(redBox) {
-            bottom.linkTo(parent.bottom, 10.dp)
-            end.linkTo(parent.end, 30.dp)
-        }
-
-        constrain(magentaBox) {
-            start.linkTo(parent.start, 10.dp)
-            end.linkTo(parent.end, 30.dp)
-        }
-
-        constrain(greenBox) {
-            centerTo(parent)
-        }
-
-        constrain(yellowBox) {
-            start.linkTo(greenBox.end)
-            top.linkTo(greenBox.bottom)
-        }
-    }
-    // https://developer.android.com/jetpack/compose/layouts/constraintlayout?hl=ko
-    ConstraintLayout(
-        constraintSet,
-        modifier = Modifier.fillMaxSize()
-    ) {
-//        val (redBox, magentaBox, greenBox, yellowBox) = createRefs()
+    ConstraintLayout(Modifier.fillMaxSize()) {
+        val (redBox, yellowBox, magentaBox, text) = createRefs()
 
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .background(Color.Red)
-                .layoutId("redBox")
-//                .constrainAs(redBox) {
-//                    bottom.linkTo(parent.bottom, 10.dp)
-//                    end.linkTo(parent.end, 30.dp)
-//                }
-        )
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(Color.Magenta)
-                .layoutId("magentaBox")
-//                .constrainAs(magentaBox) {
-//                    start.linkTo(parent.start, 10.dp)
-//                    end.linkTo(parent.end, 30.dp)
-//                }
-        )
+                .constrainAs(redBox) {
+                    start.linkTo(parent.start, margin = 10.dp)
 
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(Color.Green)
-                .layoutId("greenBox")
-//                .constrainAs(greenBox) {
-//                    centerTo(parent)
-//                }
+                }
         )
 
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .background(Color.Yellow)
-                .layoutId("yellowBox")
-//                .constrainAs(yellowBox) {
-//                    start.linkTo(greenBox.end)
-//                    top.linkTo(greenBox.bottom)
-//                }
+                .constrainAs(yellowBox) {
+                    start.linkTo(parent.start, margin = 40.dp)
+                }
+        )
+
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .background(Color.Magenta)
+                .constrainAs(magentaBox) {
+                    start.linkTo(parent.start, margin = 60.dp)
+                }
+        )
+
+        createVerticalChain(
+            redBox, yellowBox, magentaBox,
+            chainStyle = ChainStyle.SpreadInside
+        )
+
+        val boxBarrier = createEndBarrier(redBox, yellowBox, magentaBox)
+        Text(
+            text = "안녕하세요. 안녕하세요. 안녕하세요. 안녕하세요. 안녕하세요. 안녕하세요.",
+            modifier = Modifier.constrainAs(text) {
+                start.linkTo(boxBarrier)
+            }.width(100.dp)
         )
     }
 }
