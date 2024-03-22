@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.wack.dropdown.ui.theme.DropDownTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,24 +34,39 @@ fun DropDownMenu() {
     var expandDropDownMenu by remember { mutableStateOf(false) }
     var counter by remember { mutableStateOf(0) }
 
-    Column {
-        Button(onClick = { expandDropDownMenu = true }) {
-            Text("드롭다운 메뉴 열기")
+    val coroutineScope = rememberCoroutineScope()
+    val scaffoldState = rememberScaffoldState()
+
+    Scaffold(scaffoldState = scaffoldState) {
+
+        Column {
+            Button(onClick = { expandDropDownMenu = true }) {
+                Text("드롭다운 메뉴 열기")
+            }
+            Text("카운터: $counter")
         }
-        Text("카운터: $counter")
-    }
 
 
-    DropdownMenu(expanded = expandDropDownMenu, onDismissRequest = { expandDropDownMenu = false }) {
-        DropdownMenuItem(onClick = {
-            counter++
-        }) {
-            Text("+1")
-        }
-        DropdownMenuItem(onClick = {
-            counter--
-        }) {
-            Text("-1")
+        DropdownMenu(
+            expanded = expandDropDownMenu,
+            onDismissRequest = { expandDropDownMenu = false }) {
+            DropdownMenuItem(onClick = {
+                counter++
+                coroutineScope.launch {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        "카운터: $counter",
+                        actionLabel = "닫기",
+                        duration = SnackbarDuration.Short
+                    )
+                }
+            }) {
+                Text("+1")
+            }
+            DropdownMenuItem(onClick = {
+                counter--
+            }) {
+                Text("-1")
+            }
         }
     }
 }
